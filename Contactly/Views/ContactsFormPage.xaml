@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Contactly.Models.ContactsFormPage"
+             BackgroundColor="{StaticResource Background}">
+    <Grid RowDefinitions="Auto, *">
+        <Grid Grid.Row="0" ColumnDefinitions="*, Auto, Auto" Padding="40,20">
+            <Label x:Name="PageTitleLabel" Text="Hinzufügen" FontSize="32" FontAttributes="Bold" TextColor="{StaticResource Font}"/>
+            <Button Text="Abbrechen" TextColor="{StaticResource Font}" Clicked="OnCancelClicked" BackgroundColor="{StaticResource SecondaryButton}"/>
+            <Button x:Name="ActionBtn" Text="Hinzufügen" Clicked="OnSaveClicked" BackgroundColor="{StaticResource PrimaryButtonActive}" TextColor="{StaticResource FontSecondary}" Grid.Column="2"/>
+        </Grid>
+        <ScrollView Grid.Row="1" Padding="40,0,40,40">
+            <VerticalStackLayout Spacing="20" MaximumWidthRequest="800" HorizontalOptions="Center" WidthRequest="{OnPlatform WinUI=600, Default=0}">
+
+                <VerticalStackLayout>
+                    <Label Text="Vorname" TextColor="{StaticResource Font}" FontAttributes="Bold" Margin="0,0,0,5"/>
+                    <Entry x:Name="FirstNameEntry" BackgroundColor="#EEEEEE" TextColor="{StaticResource Font}"/>
+                    <Label x:Name="ErrFirstName" 
+                           Text="Dieses Feld darf nicht Leer sein!" 
+                           TextColor="{StaticResource Issue}" 
+                           FontSize="12" 
+                           IsVisible="False"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <Label Text="Nachname" TextColor="{StaticResource Font}" FontAttributes="Bold" Margin="0,0,0,5"/>
+                    <Entry x:Name="LastNameEntry" BackgroundColor="#EEEEEE" TextColor="{StaticResource Font}"/>
+                    <Label x:Name="ErrLastName" 
+                           Text="Dieses Feld darf nicht Leer sein!" 
+                           TextColor="{StaticResource Issue}" 
+                           FontSize="12" 
+                           IsVisible="False"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <Label Text="E-Mail" TextColor="{StaticResource Font}" FontAttributes="Bold" Margin="0,0,0,5"/>
+                    <Entry x:Name="EmailEntry" Keyboard="Email" BackgroundColor="#EEEEEE" TextColor="{StaticResource Font}"/>
+                    <Label x:Name="ErrEmail" 
+                           Text="Geben Sie eine korrekte E-mail an!" 
+                           TextColor="{StaticResource Issue}" 
+                           FontSize="12" 
+                           IsVisible="False"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <Label Text="Telefon" TextColor="{StaticResource Font}" FontAttributes="Bold" Margin="0,0,0,5"/>
+                    <Entry x:Name="PhoneEntry" Keyboard="Telephone" BackgroundColor="#EEEEEE" TextColor="{StaticResource Font}"/>
+                    <Label x:Name="ErrPhone" 
+                           Text="Geben Sie eine korrekte Telefonnummer an!" 
+                           TextColor="{StaticResource Issue}" 
+                           FontSize="12" 
+                           IsVisible="False"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <Label Text="Firma" TextColor="{StaticResource Font}" FontAttributes="Bold" Margin="0,0,0,5"/>
+                    <Entry x:Name="CompanyEntry" BackgroundColor="#EEEEEE" TextColor="{StaticResource Font}"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <Label Text="Notizen" TextColor="{StaticResource Font}" FontAttributes="Bold" Margin="0,0,0,5"/>
+                    <Editor x:Name="NotesEditor" 
+                            HeightRequest="200" 
+                            BackgroundColor="#EEEEEE" 
+                            TextColor="{StaticResource Font}"
+                            AutoSize="TextChanges"/>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>

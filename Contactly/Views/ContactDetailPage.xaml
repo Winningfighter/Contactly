@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Contactly.Views.ContactDetailPage"
+             BackgroundColor="{StaticResource Background}">
+    <Grid RowDefinitions="Auto, *">
+        <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Padding="40,20">
+            <Label x:Name="HeaderNameLabel" 
+                   Text="Max Mustermann" 
+                   FontSize="32" 
+                   FontAttributes="Bold"
+                   TextColor="{StaticResource Font}"/>
+
+            <Button Text="Zurück" 
+                    Clicked="OnBackClicked"
+                    BackgroundColor="{StaticResource PrimaryButtonActive}" 
+                    TextColor="White"
+                    Grid.Column="1"/>
+        </Grid>
+        <ScrollView Grid.Row="1" Padding="40,0,40,40">
+            <VerticalStackLayout Spacing="25" MaximumWidthRequest="800" HorizontalOptions="Start">
+
+                <VerticalStackLayout>
+                    <Label Text="Vorname" TextColor="{StaticResource Font}" FontSize="14"/>
+                    <Label x:Name="DetailFirstName" Text="Max" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource Font}"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <Label Text="Nachname" TextColor="{StaticResource Font}" FontSize="14"/>
+                    <Label x:Name="DetailLastName" Text="Mustermann" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource Font}"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <Label Text="E-Mail" TextColor="{StaticResource Font}" FontSize="14"/>
+                    <Label x:Name="DetailEmail" Text="max@mustermann.ch" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource Font}"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <Label Text="Telefon" TextColor="{StaticResource Font}" FontSize="14"/>
+                    <Label x:Name="DetailPhone" Text="+41 79 123 45 67" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource Font}"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <Label Text="Firma" TextColor="{StaticResource Font}" FontSize="14"/>
+                    <Label x:Name="DetailCompany" Text="Musterfirma" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource Font}"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout>
+                    <Label Text="Notizen" TextColor="{StaticResource Font}" FontSize="14"/>
+                    <Label x:Name="DetailNotes" 
+                           Text="Max ist der von der Musterfirma..." 
+                           FontSize="18" 
+                           FontAttributes="Bold" 
+                           TextColor="{StaticResource Font}"
+                           LineBreakMode="WordWrap"/>
+                </VerticalStackLayout>
+
+            </VerticalStackLayout>
+        </ScrollView>
+    </Grid>
+</ContentPage>
