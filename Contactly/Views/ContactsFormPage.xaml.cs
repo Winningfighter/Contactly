@@ -98,6 +98,7 @@ public partial class ContactsFormPage : ContentPage
         // Telefon Prüfung (Nur als Beispiel: muss Zahlen enthalten)
         if (!string.IsNullOrWhiteSpace(PhoneEntry.Text) && !PhoneEntry.Text.Any(char.IsDigit))
         {
+	        ErrPhone.Text = "Geben Sie eine korrekte Telefonnummer an!";
             ErrPhone.IsVisible = true;
             isValid = false;
         }
