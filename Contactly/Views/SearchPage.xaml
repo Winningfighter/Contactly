@@ -1,12 +1,82 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Contactly.Models.SearchPage"
-             Title="SearchPage">
-    <VerticalStackLayout>
-        <Label 
-            Text="Welcome to .NET MAUI!"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
-    </VerticalStackLayout>
+             x:Class="Contactly.Views.SearchPage"
+             xmlns:models="clr-namespace:Contactly.Models"
+             Title="Suchen">
+    <Grid RowDefinitions="Auto, Auto, Auto, *" Padding="20">
+        
+        <Label Grid.Row="0" 
+               Text="Suchen" 
+               FontSize="32" 
+               FontAttributes="Bold"
+               TextColor="{StaticResource Font}"
+               Margin="0,0,0,20"/>
+
+        <Border Grid.Row="1" 
+                StrokeShape="RoundRectangle 10"
+                StrokeThickness="0"
+                BackgroundColor="#EEEEEE"
+                Padding="10,0"
+                HeightRequest="50">
+            
+            <Entry x:Name="SearchEntry"
+                   Placeholder="Kontakte Suchen..."
+                   PlaceholderColor="Gray"
+                   TextColor="{StaticResource Font}"
+                   BackgroundColor="Transparent"
+                   VerticalOptions="Center"
+                   TextChanged="OnSearchTextChanged"/>
+        </Border>
+
+        <Label x:Name="NoResultsLabel"
+               Grid.Row="2"
+               Text="Es wurde kein Kontakt gefunden."
+               TextColor="{StaticResource Warning}"
+               FontSize="14"
+               Margin="5,10,0,0"
+               IsVisible="False"/>
+
+        <CollectionView x:Name="SearchResultsCollection"
+                        Grid.Row="3"
+                        Margin="0,20,0,0"
+                        SelectionMode="Single">
+            
+            <CollectionView.ItemsLayout>
+                <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10" VerticalItemSpacing="10"/>
+            </CollectionView.ItemsLayout>
+
+            <CollectionView.ItemTemplate>
+                <DataTemplate x:DataType="models:Contact">
+                    <Border StrokeShape="RoundRectangle 8"
+                            Stroke="#E0E0E0"
+                            Padding="15"
+                            BackgroundColor="White">
+                        
+                        <Grid RowDefinitions="Auto, Auto, Auto, Auto" ColumnDefinitions="Auto, *">
+                            <Frame Grid.Row="0" Grid.RowSpan="2"
+                                   CornerRadius="25" 
+                                   HeightRequest="50" 
+                                   WidthRequest="50" 
+                                   BackgroundColor="{StaticResource Accent}" 
+                                   Padding="0"
+                                   VerticalOptions="Start">
+                                <Label Text="{Binding FirstName, StringFormat='{0:F1}'}" 
+                                       TextColor="White" 
+                                       HorizontalOptions="Center" 
+                                       VerticalOptions="Center"/>
+                            </Frame>
+                            
+                            <VerticalStackLayout Grid.Column="1" Margin="15,0,0,0" Spacing="2">
+                                <Label Text="{Binding FirstName}" FontAttributes="Bold" TextColor="{StaticResource Font}"/>
+                                <Label Text="{Binding Email}" TextColor="Gray" FontSize="12"/>
+                                <Label Text="{Binding Phone}" TextColor="Gray" FontSize="12"/>
+                                <Label Text="{Binding Company}" TextColor="Gray" FontSize="12"/>
+                            </VerticalStackLayout>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+    </Grid>
 </ContentPage>

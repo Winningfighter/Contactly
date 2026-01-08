@@ -1,6 +1,6 @@
-using Contactly.Models;
+using Contact = Contactly.Models.Contact;
 
-namespace Contactly.Models;
+namespace Contactly.Views;
 
 [QueryProperty(nameof(ContactToEdit), "Contact")]
 public partial class ContactsFormPage : ContentPage
@@ -60,7 +60,7 @@ public partial class ContactsFormPage : ContentPage
 	private async void OnCancelClicked(object sender, EventArgs e)
 	{
         // NotesEditor.Text = Shell.Current.ToString();
-		bool goBack = await DisplayAlert("Achtung", "Deine Änderungen werden verworfen wenn du jetzt abbrichst!", "Trotzdem Verlassen", "Abbrechen");
+		bool goBack = await DisplayAlert("Achtung", "Deine Ã„nderungen werden verworfen wenn du jetzt abbrichst!", "Trotzdem Verlassen", "ZurÃ¼ck");
 		if (goBack) await Shell.Current.GoToAsync("..");
     }
 
@@ -74,32 +74,39 @@ public partial class ContactsFormPage : ContentPage
         ErrEmail.IsVisible = false;
         ErrPhone.IsVisible = false;
 
-        // Vorname Prüfung
+        // Vorname PrÃ¼fung
         if (string.IsNullOrWhiteSpace(FirstNameEntry.Text))
         {
             ErrFirstName.IsVisible = true;
             isValid = false;
         }
 
-        // Nachname Prüfung
+        // Nachname PrÃ¼fung
         if (string.IsNullOrWhiteSpace(LastNameEntry.Text))
         {
             ErrLastName.IsVisible = true;
             isValid = false;
         }
 
-        // Email Prüfung (Einfach)
+        // Email PrÃ¼fung (Einfach)
         if (!string.IsNullOrWhiteSpace(EmailEntry.Text) && !EmailEntry.Text.Contains("@"))
         {
             ErrEmail.IsVisible = true;
             isValid = false;
         }
 
-        // Telefon Prüfung (Nur als Beispiel: muss Zahlen enthalten)
+        // Telefon PrÃ¼fung (Nur als Beispiel: muss Zahlen enthalten)
         if (!string.IsNullOrWhiteSpace(PhoneEntry.Text) && !PhoneEntry.Text.Any(char.IsDigit))
         {
             ErrPhone.IsVisible = true;
             isValid = false;
+        }
+
+        if (!string.IsNullOrWhiteSpace(PhoneEntry.Text) && PhoneEntry.Text.Any(char.IsLetter))
+        {
+	        ErrPhone.Text = "Telefonnummer darf keine Buchstaben enthalten.";
+	        ErrPhone.IsVisible = true;
+	        isValid = false;
         }
 
         return isValid;

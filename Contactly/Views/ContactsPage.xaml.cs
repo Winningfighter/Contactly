@@ -1,7 +1,8 @@
 using System.Collections.ObjectModel;
 using Contactly.Models;
+using Contact = Contactly.Models.Contact;
 
-namespace Contactly.Models;
+namespace Contactly.Views;
 
 public partial class ContactsPage : ContentPage
 {
@@ -20,10 +21,10 @@ public partial class ContactsPage : ContentPage
         LoadContacts();
     }
 
-    private void LoadContacts()
+    public void LoadContacts()
     {
-        // Hier w�rdest du normalerweise aus der Datenbank laden.
-        // Wir verhindern doppeltes Laden beim Zur�cknavigieren:
+        // Hier w�rdest du normalerweise aus der Datenbank laden.
+        // Wir verhindern doppeltes Laden beim Zur�cknavigieren:
         if (Contacts.Count > 0) return;
 
         var dummies = new List<Contact>
@@ -38,16 +39,80 @@ public partial class ContactsPage : ContentPage
             Contacts.Add(contact);
         }
     }
-
-    private void OnGridClicked(object sender, EventArgs e)
+    
+    private async void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        // 2 Spalten f�r Rasteransicht
-        ContactsCollection.ItemsLayout = new GridItemsLayout(2, ItemsLayoutOrientation.Vertical);
+        if (e.CurrentSelection.FirstOrDefault() is Contact selectedContact)
+        {
+            // Navigiere zur Detailseite und übergebe das Objekt
+            var navParam = new Dictionary<string, object>
+            {
+                { "Contact", selectedContact }
+            };
+            
+            // Auswahl aufheben, damit man nochmal draufklicken kann
+            ContactsCollection.SelectedItem = null;
+
+            await Shell.Current.GoToAsync(nameof(ContactDetailPage), navParam);
+        }
     }
 
-    private void OnListClicked(object sender, EventArgs e)
+    // Wird ausgelöst beim Klick auf "Bearbeiten" Button
+    private async void OnEditClicked(object sender, EventArgs e)
+    {
+        var button = sender as Button;
+        var contact = button?.CommandParameter as Contact;
+
+        if (contact != null)
+        {
+            var navParam = new Dictionary<string, object>
+            {
+                { "Contact", contact }
+            };
+            await Shell.Current.GoToAsync(nameof(ContactsFormPage), navParam);
+        }
+    }
+
+    // Wird ausgelöst beim Klick auf den Mülleimer
+    private async void OnDeleteClicked(object sender, EventArgs e)
+    {
+        var button = sender as ImageButton;
+        var contact = button?.CommandParameter as Contact;
+
+        if (contact != null)
+        {
+            bool answer = await DisplayAlert("Löschen?", $"Möchtest du {contact.FullName} wirklich löschen?", "Ja", "Nein");
+            
+            if (answer)
+            {
+                Contacts.Remove(contact); // Entfernt es sofort aus der UI
+                // TODO: Hier auch aus Datenbank löschen!
+            }
+        }
+    }
+
+    public void OnGridClicked(object sender, EventArgs e)
+    {
+        // 2 Spalten f�r Rasteransicht
+        ContactsCollection.ItemsLayout = new GridItemsLayout(2, ItemsLayoutOrientation.Vertical);
+        
+        // Buttons färben für Feedback
+        BtnGrid.BackgroundColor = (Color)Application.Current.Resources["PrimaryButtonActive"];
+        BtnGrid.TextColor = Colors.White;
+        BtnList.BackgroundColor = (Color)Application.Current.Resources["SecondaryButton"];
+        BtnList.TextColor = (Color)Application.Current.Resources["Font"];
+    }
+
+    public void OnListClicked(object sender, EventArgs e)
     {
         // Einfache Liste
         ContactsCollection.ItemsLayout = new LinearItemsLayout(ItemsLayoutOrientation.Vertical);
+        
+        // Buttons färben für Feedback
+        BtnList.BackgroundColor = (Color)Application.Current.Resources["PrimaryButtonActive"];
+        BtnList.TextColor = Colors.White;
+        BtnGrid.BackgroundColor = (Color)Application.Current.Resources["SecondaryButton"];
+        BtnGrid.TextColor = (Color)Application.Current.Resources["Font"];
+    
     }
 }

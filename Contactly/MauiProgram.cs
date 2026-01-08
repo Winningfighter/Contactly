@@ -1,4 +1,5 @@
 ﻿using Contactly.Models;
+using Contactly.Views;
 using Microsoft.Extensions.Logging;
 
 namespace Contactly
