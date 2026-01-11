@@ -1,7 +1,9 @@
 using System.Collections.ObjectModel;
 using Contactly.Models;
+using Contactly.Services;
+using Contact = Contactly.Models.Contact;
 
-namespace Contactly.Models;
+namespace Contactly.Views;
 
 public partial class ContactsPage : ContentPage
 {
@@ -20,34 +22,115 @@ public partial class ContactsPage : ContentPage
         LoadContacts();
     }
 
-    private void LoadContacts()
+    public void LoadContacts()
     {
-        // Hier w�rdest du normalerweise aus der Datenbank laden.
-        // Wir verhindern doppeltes Laden beim Zur�cknavigieren:
-        if (Contacts.Count > 0) return;
+        Contacts.Clear();
+        var loadedContacts = ContactService.LoadContacts();
 
-        var dummies = new List<Contact>
-        {
-            new Contact { FirstName = "Max", LastName = "Mustermann", Email = "max@test.ch", Phone = "+41 79 123 45 67", Company = "Muster AG" },
-            new Contact { FirstName = "Sarah", LastName = "Connor", Email = "s.connor@sky.net", Phone = "+1 555 123 123", Company = "Resistance" },
-            new Contact { FirstName = "Bruce", LastName = "Wayne", Email = "batman@wayne.com", Phone = "Secret", Company = "Wayne Ent." }
-        };
-
-        foreach (var contact in dummies)
+        foreach (var contact in loadedContacts)
         {
             Contacts.Add(contact);
         }
     }
-
-    private void OnGridClicked(object sender, EventArgs e)
+    
+    private async void OnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        // 2 Spalten f�r Rasteransicht
-        ContactsCollection.ItemsLayout = new GridItemsLayout(2, ItemsLayoutOrientation.Vertical);
+        if (e.CurrentSelection.FirstOrDefault() is Contact selectedContact)
+        {
+            // Navigiere zur Detailseite und übergebe das Objekt
+            var navParam = new Dictionary<string, object>
+            {
+                { "Contact", selectedContact }
+            };
+            
+            // Auswahl aufheben, damit man nochmal draufklicken kann
+            ContactsCollection.SelectedItem = null;
+
+            await Shell.Current.GoToAsync(nameof(ContactDetailPage), navParam);
+        }
     }
 
-    private void OnListClicked(object sender, EventArgs e)
+    // Wird ausgelöst beim Klick auf "Bearbeiten" Button
+    private async void OnEditClicked(object sender, EventArgs e)
     {
-        // Einfache Liste
+        var button = sender as Button;
+        var contact = button?.CommandParameter as Contact;
+
+        if (contact != null)
+        {
+            var navParam = new Dictionary<string, object>
+            {
+                { "Contact", contact }
+            };
+            await Shell.Current.GoToAsync(nameof(ContactsFormPage), navParam);
+        }
+    }
+
+    // Wird ausgelöst beim Klick auf den Mülleimer
+    private async void OnDeleteClicked(object sender, EventArgs e)
+    {
+        var button = sender as ImageButton;
+        var contact = button?.CommandParameter as Contact;
+
+        if (contact != null)
+        {
+            bool answer = await DisplayAlert("Löschen?", $"Möchtest du {contact.FullName} wirklich löschen?", "Ja", "Nein");
+            
+            if (answer)
+            {
+                ContactService.DeleteContact(contact.Id);
+                Contacts.Remove(contact);
+            }
+        }
+    }
+
+    public void OnGridClicked(object sender, EventArgs e)
+    {
+        var theme = Application.Current.RequestedTheme;
+
+        // Rasteransicht setzen
+        ContactsCollection.ItemsLayout = new GridItemsLayout(2, ItemsLayoutOrientation.Vertical);
+    
+        // Buttons färben
+        UpdateButtons(isGrid: true, theme);
+    }
+
+    public void OnListClicked(object sender, EventArgs e)
+    {
+        var theme = Application.Current.RequestedTheme;
+
+        // Listenansicht setzen
         ContactsCollection.ItemsLayout = new LinearItemsLayout(ItemsLayoutOrientation.Vertical);
+    
+        // Buttons färben
+        UpdateButtons(isGrid: false, theme);
+    }
+    
+    private void UpdateButtons(bool isGrid, AppTheme theme)
+    {
+        var activeColor = (Color)Application.Current.Resources["PrimaryButtonActive"];
+        var inactiveColor = theme == AppTheme.Dark 
+            ? (Color)Application.Current.Resources["SecondaryButtonDark"] 
+            : (Color)Application.Current.Resources["SecondaryButton"];
+    
+        var activeText = Colors.White;
+        var inactiveText = theme == AppTheme.Dark 
+            ? (Color)Application.Current.Resources["FontSecondary"] 
+            : (Color)Application.Current.Resources["Font"];
+
+        if (isGrid)
+        {
+            BtnGrid.BackgroundColor = activeColor;
+            BtnGrid.TextColor = activeText;
+            BtnList.BackgroundColor = inactiveColor;
+            BtnList.TextColor = inactiveText;
+        }
+        else
+        {
+            BtnList.BackgroundColor = activeColor;
+            BtnList.TextColor = activeText;
+            BtnGrid.BackgroundColor = inactiveColor;
+            BtnGrid.TextColor = inactiveText;
+        }
     }
 }

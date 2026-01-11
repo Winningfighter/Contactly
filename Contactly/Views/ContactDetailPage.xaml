@@ -1,58 +1,111 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Contactly.Views.ContactDetailPage"
-             BackgroundColor="{StaticResource Background}">
+             xmlns:converters="clr-namespace:Contactly.Converters"
+             x:Class="Contactly.Views.ContactDetailPage">
+     <ContentPage.Resources>
+        <converters:DivideByTenConverter x:Key="DivideByTenConverter" />
+    </ContentPage.Resources>
+    
     <Grid RowDefinitions="Auto, *">
         <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Padding="40,20">
             <Label x:Name="HeaderNameLabel" 
-                   Text="Max Mustermann" 
+                   Text="{Binding Contact.FullName}" 
                    FontSize="32" 
                    FontAttributes="Bold"
-                   TextColor="{StaticResource Font}"/>
+                   TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}"/>
 
             <Button Text="Zurück" 
                     Clicked="OnBackClicked"
-                    BackgroundColor="{StaticResource PrimaryButtonActive}" 
+                    BackgroundColor="{StaticResource Primary}"
                     TextColor="White"
                     Grid.Column="1"/>
         </Grid>
+
         <ScrollView Grid.Row="1" Padding="40,0,40,40">
             <VerticalStackLayout Spacing="25" MaximumWidthRequest="800" HorizontalOptions="Start">
 
+                <HorizontalStackLayout Spacing="10" IsVisible="{Binding Contact.IsFavorite}">
+                    <Label Text="Dies ist ein Favorit ⭐" TextColor="{StaticResource Primary}" VerticalOptions="Center" FontAttributes="Bold"/>
+                </HorizontalStackLayout>
+                
                 <VerticalStackLayout>
-                    <Label Text="Vorname" TextColor="{StaticResource Font}" FontSize="14"/>
-                    <Label x:Name="DetailFirstName" Text="Max" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource Font}"/>
+                    <Label Text="Vorname" TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}" FontSize="14"/>
+                    <Label x:Name="DetailFirstName" 
+                           Text="{Binding Contact.FirstName}" 
+                           FontSize="20" FontAttributes="Bold" 
+                           TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}"/>
                 </VerticalStackLayout>
 
                 <VerticalStackLayout>
-                    <Label Text="Nachname" TextColor="{StaticResource Font}" FontSize="14"/>
-                    <Label x:Name="DetailLastName" Text="Mustermann" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource Font}"/>
+                    <Label Text="Nachname" TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}" FontSize="14"/>
+                    <Label x:Name="DetailLastName" 
+                           Text="{Binding Contact.LastName}" 
+                           FontSize="20" FontAttributes="Bold" 
+                           TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}"/>
                 </VerticalStackLayout>
 
                 <VerticalStackLayout>
-                    <Label Text="E-Mail" TextColor="{StaticResource Font}" FontSize="14"/>
-                    <Label x:Name="DetailEmail" Text="max@mustermann.ch" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource Font}"/>
+                    <Label Text="E-Mail" TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}" FontSize="14"/>
+                    <Label x:Name="DetailEmail" 
+                           Text="{Binding Contact.Email}" 
+                           FontSize="20" FontAttributes="Bold" 
+                           TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}"/>
                 </VerticalStackLayout>
 
                 <VerticalStackLayout>
-                    <Label Text="Telefon" TextColor="{StaticResource Font}" FontSize="14"/>
-                    <Label x:Name="DetailPhone" Text="+41 79 123 45 67" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource Font}"/>
+                    <Label Text="Telefon" TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}" FontSize="14"/>
+                    <Label x:Name="DetailPhone" 
+                           Text="{Binding Contact.Phone}" 
+                           FontSize="20" FontAttributes="Bold" 
+                           TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}"/>
                 </VerticalStackLayout>
 
                 <VerticalStackLayout>
-                    <Label Text="Firma" TextColor="{StaticResource Font}" FontSize="14"/>
-                    <Label x:Name="DetailCompany" Text="Musterfirma" FontSize="20" FontAttributes="Bold" TextColor="{StaticResource Font}"/>
+                    <Label Text="Firma" TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}" FontSize="14"/>
+                    <Label x:Name="DetailCompany" 
+                           Text="{Binding Contact.Company}" 
+                           FontSize="20" FontAttributes="Bold" 
+                           TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}"/>
                 </VerticalStackLayout>
 
                 <VerticalStackLayout>
-                    <Label Text="Notizen" TextColor="{StaticResource Font}" FontSize="14"/>
+                    <Label Text="Notizen" TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}" FontSize="14"/>
                     <Label x:Name="DetailNotes" 
-                           Text="Max ist der von der Musterfirma..." 
+                           Text="{Binding Contact.Notes}" 
                            FontSize="18" 
                            FontAttributes="Bold" 
-                           TextColor="{StaticResource Font}"
+                           TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}"
                            LineBreakMode="WordWrap"/>
+                </VerticalStackLayout>
+                
+                <BoxView HeightRequest="1" Color="{AppThemeBinding Light=Gray, Dark=Gray}" Margin="0,15"/>
+                <Label Text="Details" FontSize="18" FontAttributes="Bold" Margin="0,0,0,10"/>
+
+                <Grid ColumnDefinitions="*, *" Margin="0,0,0,10">
+                    <VerticalStackLayout>
+                        <Label Text="Kategorie" FontSize="12" TextColor="Gray"/>
+                        <Label Text="{Binding Contact.Category}" FontSize="16"/>
+                    </VerticalStackLayout>
+    
+                    <VerticalStackLayout Grid.Column="1">
+                        <Label Text="Typ" FontSize="12" TextColor="Gray"/>
+                        <Label Text="{Binding Contact.ContactType}" FontSize="16"/>
+                    </VerticalStackLayout>
+                </Grid>
+
+                <VerticalStackLayout Margin="0,0,0,10">
+                    <Label Text="Geburtstag" FontSize="12" TextColor="Gray"/>
+                    <Label Text="{Binding Contact.BirthDate, StringFormat='{0:dd.MM.yyyy}'}" FontSize="16"/>
+                </VerticalStackLayout>
+
+                <VerticalStackLayout Margin="0,0,0,10">
+                    <Label Text="Vertrauenslevel" FontSize="12" TextColor="Gray"/>
+                    <ProgressBar Progress="{Binding Contact.TrustLevel, Converter={StaticResource DivideByTenConverter}}" 
+                                 ProgressColor="{StaticResource Primary}" 
+                                 HeightRequest="10" Margin="0,5,0,0"/>
+                    <Label Text="{Binding Contact.TrustLevel, StringFormat='{0}/10'}" 
+                           FontSize="12" HorizontalOptions="End"/>
                 </VerticalStackLayout>
 
             </VerticalStackLayout>

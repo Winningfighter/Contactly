@@ -12,7 +12,6 @@
     <Color x:Key="Secondary">#E9ECEF</Color>
     <Color x:Key="SecondaryDarkText">#1E1E1E</Color>
     <Color x:Key="Tertiary">#2B0B98</Color>
-
     <Color x:Key="Font">#1E1E1E</Color>
     <Color x:Key="FontSecondary">White</Color>
     <Color x:Key="TextHighlight">#003A70</Color>
@@ -25,6 +24,7 @@
     <Color x:Key="PrimaryButtonPressed">#0150e8</Color>
     <Color x:Key="PrimaryButtonHover">#1765CC</Color>
     <Color x:Key="PrimaryButtonInactive">#B5D0F6</Color>
+    
     <Color x:Key="SecondaryButton">#E9ECEF</Color>
     <Color x:Key="SecondaryButtonHover">#DDE2E5</Color>
     <Color x:Key="SecondaryButtonPressed">#ccd1d4</Color>
@@ -34,8 +34,6 @@
     <Color x:Key="Issue">#D32F2F</Color>
     <Color x:Key="Attention">#D32F2F</Color>
     <Color x:Key="Warning">#FFA726</Color>
-
-
 
     <Color x:Key="White">White</Color>
     <Color x:Key="Black">Black</Color>
@@ -51,6 +49,15 @@
     <Color x:Key="Gray600">#404040</Color>
     <Color x:Key="Gray900">#212121</Color>
     <Color x:Key="Gray950">#141414</Color>
+    
+    <Color x:Key="BackgroundDark">#121212</Color> 
+    <Color x:Key="SurfaceDark">#1E1E1E</Color> 
+    
+    <Color x:Key="SecondaryButtonDark">#2C2C2C</Color>
+    <Color x:Key="SecondaryButtonHoverDark">#3A3A3A</Color>
+    <Color x:Key="SecondaryButtonPressedDark">#151515</Color>
+
+    <Color x:Key="InputBackgroundDark">#2C2C2C</Color>
 
     <SolidColorBrush x:Key="PrimaryBrush" Color="{StaticResource Primary}"/>
     <SolidColorBrush x:Key="SecondaryBrush" Color="{StaticResource Secondary}"/>

@@ -1,4 +1,4 @@
-namespace Contactly.Models;
+namespace Contactly.Views;
 
 public partial class AddPage : ContentPage
 {

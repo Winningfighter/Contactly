@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Contactly.Models.ContactsPage"
-             Title="ContactsPage">
+             x:Class="Contactly.Views.ContactsPage"
+             xmlns:models="clr-namespace:Contactly.Models">
+    
     <Grid RowDefinitions="Auto, *">
         <Grid Grid.Row="0" ColumnDefinitions="*, Auto" Padding="20">
-            <Label Text="Kontakte" FontSize="32" FontAttributes="Bold" TextColor="{StaticResource Font}" VerticalOptions="Center"/>
+            <Label Text="Kontakte" 
+                   FontSize="32" 
+                   FontAttributes="Bold" 
+                   TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}" 
+                   VerticalOptions="Center"/>
+            
             <HorizontalStackLayout Grid.Column="1" Spacing="10">
                 <Button x:Name="BtnGrid" 
                         Text="Raster" 
@@ -16,8 +22,8 @@
                 <Button x:Name="BtnList" 
                         Text="Liste" 
                         Clicked="OnListClicked"
-                        BackgroundColor="{StaticResource SecondaryButton}"
-                        TextColor="{StaticResource Font}"/>
+                        BackgroundColor="{AppThemeBinding Light={StaticResource SecondaryButton}, Dark={StaticResource SecondaryButtonDark}}"
+                        TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}"/>
             </HorizontalStackLayout>
         </Grid>
 
@@ -30,10 +36,10 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Contact">
                     <Border StrokeShape="RoundRectangle 8"
-                            Stroke="#E0E0E0"
+                            Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}"
                             Padding="15"
                             Margin="5"
-                            BackgroundColor="White">
+                            BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource SurfaceDark}}">
 
                         <Grid RowDefinitions="Auto, Auto, Auto, Auto" ColumnDefinitions="Auto, *">
 
@@ -52,10 +58,36 @@
                             </Frame>
 
                             <VerticalStackLayout Grid.Column="1" Margin="15,0,0,0" Spacing="2">
-                                <Label Text="{Binding FullName}" FontAttributes="Bold" TextColor="{StaticResource Font}" FontSize="16"/>
-                                <Label Text="{Binding Email}" TextColor="Gray" FontSize="12"/>
-                                <Label Text="{Binding Phone}" TextColor="Gray" FontSize="12"/>
-                                <Label Text="{Binding Company}" TextColor="Gray" FontSize="12"/>
+                                <Label Text="{Binding FullName}" 
+                                       FontAttributes="Bold" 
+                                       TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}" 
+                                       FontSize="16"
+                                       LineBreakMode="TailTruncation"/>
+                                
+                                <HorizontalStackLayout Spacing="5">
+                                    <Image Source="{AppThemeBinding Light=mail.png, Dark=mail_white.png}" HeightRequest="16" WidthRequest="16" VerticalOptions="Center"/>
+                                    <Label Text="{Binding Email}" 
+                                           TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" 
+                                           FontSize="12"
+                                           LineBreakMode="TailTruncation"/>
+                                </HorizontalStackLayout>
+                                
+                                <HorizontalStackLayout Spacing="5">
+                                    <Image Source="{AppThemeBinding Light=phone.png, Dark=phone_white.png}" HeightRequest="16" WidthRequest="16" VerticalOptions="Center"/>
+                                    <Label Text="{Binding Phone}" 
+                                           TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" 
+                                           FontSize="12"
+                                           LineBreakMode="TailTruncation"/>
+                                </HorizontalStackLayout>
+                                
+                                <HorizontalStackLayout Spacing="5">
+                                    <Image Source="{AppThemeBinding Light=company.png, Dark=company_white.png}" HeightRequest="16" WidthRequest="16" VerticalOptions="Center"/>
+                                    <Label Text="{Binding Company}" 
+                                           TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" 
+                                           FontSize="12"
+                                           LineBreakMode="TailTruncation"/>
+                                </HorizontalStackLayout>
+                                
                             </VerticalStackLayout>
 
                             <Grid Grid.Row="3" Grid.Column="1" ColumnDefinitions="*, Auto" Margin="15,15,0,0">
@@ -63,13 +95,14 @@
                                 <Button Text="Bearbeiten" 
                                         Clicked="OnEditClicked"
                                         CommandParameter="{Binding .}"
-                                        BackgroundColor="{StaticResource SecondaryButton}" 
-                                        TextColor="{StaticResource Font}"
+                                        BackgroundColor="{AppThemeBinding Light={StaticResource SecondaryButton}, Dark={StaticResource SecondaryButtonDark}}" 
+                                        ImageSource="{AppThemeBinding Light=edit.png, Dark=edit_white.png}"
+                                        TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}"
                                         HeightRequest="35"
                                         Padding="10,0"
                                         FontSize="12"/>
 
-                                <ImageButton Source="delete_icon.png" 
+                                <ImageButton Source="trash.png" 
                                              Clicked="OnDeleteClicked"
                                              CommandParameter="{Binding .}"
                                              BackgroundColor="{StaticResource Issue}" 
@@ -85,6 +118,5 @@
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
-        
     </Grid>
 </ContentPage>
