@@ -1,70 +1,131 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
-             x:Class="Contactly.Views.ContactsFormPage"
-             BackgroundColor="{StaticResource Background}">
+             x:Class="Contactly.Views.ContactsFormPage">
+    
     <Grid RowDefinitions="Auto, *">
         <Grid Grid.Row="0" ColumnDefinitions="*, Auto, Auto" Padding="40,20">
-            <Label x:Name="PageTitleLabel" Text="Hinzufügen" FontSize="32" FontAttributes="Bold" TextColor="{StaticResource Font}"/>
-            <Button Text="Abbrechen" TextColor="{StaticResource Font}" Clicked="OnCancelClicked" BackgroundColor="{StaticResource SecondaryButton}"/>
-            <Button x:Name="ActionBtn" Text="Hinzufügen" Clicked="OnSaveClicked" BackgroundColor="{StaticResource PrimaryButtonActive}" TextColor="{StaticResource FontSecondary}" Grid.Column="2"/>
+            <Label x:Name="PageTitleLabel" 
+                   Text="Hinzufügen" 
+                   FontSize="32" 
+                   FontAttributes="Bold" 
+                   TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}"/>
+            
+            <Button Text="Abbrechen" 
+                    Clicked="OnCancelClicked" 
+                    Style="{StaticResource SecondaryButtonStyle}" 
+                    BackgroundColor="{StaticResource SecondaryButtonDark}"/>
+            
+            <Button x:Name="ActionBtn" 
+                    Text="Hinzufügen" 
+                    Clicked="OnSaveClicked" 
+                    Style="{StaticResource PrimaryButtonStyle}"
+                    Grid.Column="2"/>
         </Grid>
         <ScrollView Grid.Row="1" Padding="40,0,40,40">
             <VerticalStackLayout Spacing="20" MaximumWidthRequest="800" HorizontalOptions="Center" WidthRequest="{OnPlatform WinUI=600, Default=0}">
 
                 <VerticalStackLayout>
-                    <Label Text="Vorname" TextColor="{StaticResource Font}" FontAttributes="Bold" Margin="0,0,0,5"/>
-                    <Entry x:Name="FirstNameEntry" BackgroundColor="#EEEEEE" TextColor="{StaticResource Font}"/>
+                    <Label Text="Vorname" TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}" FontAttributes="Bold" Margin="0,0,0,5"/>
+                    <Entry x:Name="FirstNameEntry" 
+                           BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource InputBackgroundDark}}" 
+                           TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}"/>
                     <Label x:Name="ErrFirstName" 
-                           Text="Dieses Feld darf nicht Leer sein!" 
+                           Text="Dieses Feld darf nicht Leer sein!"
                            TextColor="{StaticResource Issue}" 
                            FontSize="12" 
                            IsVisible="False"/>
                 </VerticalStackLayout>
 
                 <VerticalStackLayout>
-                    <Label Text="Nachname" TextColor="{StaticResource Font}" FontAttributes="Bold" Margin="0,0,0,5"/>
-                    <Entry x:Name="LastNameEntry" BackgroundColor="#EEEEEE" TextColor="{StaticResource Font}"/>
+                    <Label Text="Nachname" TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}" FontAttributes="Bold" Margin="0,0,0,5"/>
+                    <Entry x:Name="LastNameEntry" 
+                           BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource InputBackgroundDark}}" 
+                           TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}"/>
                     <Label x:Name="ErrLastName" 
-                           Text="Dieses Feld darf nicht Leer sein!" 
+                           Text="Dieses Feld darf nicht Leer sein!"
                            TextColor="{StaticResource Issue}" 
                            FontSize="12" 
                            IsVisible="False"/>
                 </VerticalStackLayout>
 
                 <VerticalStackLayout>
-                    <Label Text="E-Mail" TextColor="{StaticResource Font}" FontAttributes="Bold" Margin="0,0,0,5"/>
-                    <Entry x:Name="EmailEntry" Keyboard="Email" BackgroundColor="#EEEEEE" TextColor="{StaticResource Font}"/>
+                    <Label Text="E-Mail" TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}" FontAttributes="Bold" Margin="0,0,0,5"/>
+                    <Entry x:Name="EmailEntry" Keyboard="Email" 
+                           BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource InputBackgroundDark}}" 
+                           TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}"/>
                     <Label x:Name="ErrEmail" 
-                           Text="Geben Sie eine korrekte E-mail an!" 
+                           Text="Geben Sie eine korrekte E-mail an!"
                            TextColor="{StaticResource Issue}" 
                            FontSize="12" 
                            IsVisible="False"/>
                 </VerticalStackLayout>
 
                 <VerticalStackLayout>
-                    <Label Text="Telefon" TextColor="{StaticResource Font}" FontAttributes="Bold" Margin="0,0,0,5"/>
-                    <Entry x:Name="PhoneEntry" Keyboard="Telephone" BackgroundColor="#EEEEEE" TextColor="{StaticResource Font}"/>
+                    <Label Text="Telefon" TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}" FontAttributes="Bold" Margin="0,0,0,5"/>
+                    <Entry x:Name="PhoneEntry" Keyboard="Telephone" 
+                           BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource InputBackgroundDark}}" 
+                           TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}"/>
                     <Label x:Name="ErrPhone" 
-                           Text="Geben Sie eine korrekte Telefonnummer an!" 
+                           Text="Geben Sie eine korrekte Telefonnummer an!"
                            TextColor="{StaticResource Issue}" 
                            FontSize="12" 
                            IsVisible="False"/>
                 </VerticalStackLayout>
 
                 <VerticalStackLayout>
-                    <Label Text="Firma" TextColor="{StaticResource Font}" FontAttributes="Bold" Margin="0,0,0,5"/>
-                    <Entry x:Name="CompanyEntry" BackgroundColor="#EEEEEE" TextColor="{StaticResource Font}"/>
+                    <Label Text="Firma" TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}" FontAttributes="Bold" Margin="0,0,0,5"/>
+                    <Entry x:Name="CompanyEntry" 
+                           BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource InputBackgroundDark}}" 
+                           TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}"/>
                 </VerticalStackLayout>
 
                 <VerticalStackLayout>
-                    <Label Text="Notizen" TextColor="{StaticResource Font}" FontAttributes="Bold" Margin="0,0,0,5"/>
+                    <Label Text="Notizen" TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}" FontAttributes="Bold" Margin="0,0,0,5"/>
                     <Editor x:Name="NotesEditor" 
                             HeightRequest="200" 
-                            BackgroundColor="#EEEEEE" 
-                            TextColor="{StaticResource Font}"
+                            BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource InputBackgroundDark}}" 
+                            TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}"
                             AutoSize="TextChanges"/>
                 </VerticalStackLayout>
+                
+                <BoxView HeightRequest="1" Color="{AppThemeBinding Light=Gray, Dark=Gray}" Margin="0,20"/>
+                <Label Text="Details" FontSize="18" FontAttributes="Bold" Margin="0,0,0,10"/>
+
+                <Grid ColumnDefinitions="*, Auto" Margin="0,5">
+                    <Label Text="Zu Favoriten hinzufügen" VerticalOptions="Center"/>
+                    <Switch x:Name="FavoriteSwitch" Grid.Column="1" />
+                </Grid>
+
+                <Label Text="Typ:" FontAttributes="Bold" Margin="0,10,0,5"/>
+                <HorizontalStackLayout Spacing="20">
+                    <RadioButton x:Name="RadioPrivate" Content="Privat" Value="Privat" GroupName="TypeGroup" IsChecked="True"/>
+                    <RadioButton x:Name="RadioBusiness" Content="Geschäftlich" Value="Geschäftlich" GroupName="TypeGroup"/>
+                </HorizontalStackLayout>
+
+                <Label Text="Vertrauenslevel (0-10):" FontAttributes="Bold" Margin="0,15,0,0"/>
+                <Grid ColumnDefinitions="*, Auto">
+                    <Slider x:Name="TrustSlider" Minimum="0" Maximum="10" Value="5" Grid.Column="0"/>
+                    <Label Text="{Binding Source={x:Reference TrustSlider}, Path=Value, StringFormat='{0:F0}'}" 
+                           Grid.Column="1" VerticalOptions="Center" WidthRequest="30" HorizontalTextAlignment="End"/>
+                </Grid>
+
+                <Label Text="Kategorie:" FontAttributes="Bold" Margin="0,15,0,5"/>
+                <Border StrokeShape="RoundRectangle 5" Padding="0" StrokeThickness="1" 
+                        Stroke="{AppThemeBinding Light=Gray, Dark=Gray}">
+                    <Picker x:Name="CategoryPicker">
+                        <Picker.Items>
+                            <x:String>Familie</x:String>
+                            <x:String>Freunde</x:String>
+                            <x:String>Arbeit</x:String>
+                            <x:String>Verein</x:String>
+                            <x:String>Sonstiges</x:String>
+                        </Picker.Items>
+                    </Picker>
+                </Border>
+
+                <Label Text="Geburtstag:" FontAttributes="Bold" Margin="0,15,0,5"/>
+                <DatePicker x:Name="BirthDatePicker" Format="dd.MM.yyyy" />
 
             </VerticalStackLayout>
         </ScrollView>

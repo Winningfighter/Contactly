@@ -21,11 +21,11 @@ namespace Contactly
     		builder.Logging.AddDebug();
 #endif
 
-            Routing.RegisterRoute("search", typeof(SearchPage));
-            Routing.RegisterRoute("add", typeof(AddPage));
-            Routing.RegisterRoute("contactsFormPage", typeof(ContactsFormPage));
-            Routing.RegisterRoute("contacts", typeof(ContactsPage));
-
+            // Routing.RegisterRoute("search", typeof(SearchPage));
+            // Routing.RegisterRoute("add", typeof(AddPage));
+            // Routing.RegisterRoute("contactsFormPage", typeof(ContactsFormPage));
+            // Routing.RegisterRoute("contacts", typeof(ContactsPage));
+            
             return builder.Build();
         }
     }

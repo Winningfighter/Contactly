@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Contactly.Views.InfoPage"
+             Title="Über Contactly">
+
+    <ScrollView>
+        <Grid RowDefinitions="Auto, *, Auto" Padding="20" RowSpacing="20">
+            
+            <VerticalStackLayout Grid.Row="0" Spacing="10" Margin="0,20,0,20">
+                <Image Source="logo.png" 
+                       HeightRequest="120" 
+                       WidthRequest="120" 
+                       HorizontalOptions="Center"/>
+
+                <Label Text="Contactly" 
+                       FontSize="32" 
+                       FontAttributes="Bold" 
+                       HorizontalOptions="Center"
+                       TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}"/>
+
+                <Label Text="v1.0.0" 
+                       FontSize="16" 
+                       HorizontalOptions="Center"
+                       TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}"/>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="1" Spacing="25">
+                
+                <Border StrokeShape="RoundRectangle 10" 
+                        StrokeThickness="0"
+                        Padding="20"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource SurfaceDark}}">
+                    <VerticalStackLayout Spacing="10">
+                        <Label Text="Über die App" FontAttributes="Bold" FontSize="18"/>
+                        <Label Text="Contactly ist deine moderne Lösung zur Verwaltung von Kontakten. Entwickelt mit der neuesten .NET MAUI Technologie für maximale Performance auf Windows."
+                               TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}"/>
+                    </VerticalStackLayout>
+                </Border>
+
+                <Border StrokeShape="RoundRectangle 10" 
+                        StrokeThickness="0"
+                        Padding="20"
+                        BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource SurfaceDark}}">
+                    <VerticalStackLayout Spacing="15">
+                        <Label Text="Entwicklung" FontAttributes="Bold" FontSize="18"/>
+                        
+                        <Grid ColumnDefinitions="*, Auto" RowDefinitions="Auto, Auto">
+                            <Label Text="Entwickler" Grid.Row="0" VerticalOptions="Center"/>
+                            <Label Text="Loïc Steiner" Grid.Row="0" Grid.Column="1" FontAttributes="Bold" VerticalOptions="Center"/>
+
+                            <Label Text="Framework" Grid.Row="1" Margin="0,10,0,0" VerticalOptions="Center"/>
+                            <Label Text=".NET MAUI 8.0" Grid.Row="1" Grid.Column="1" Margin="0,10,0,0" FontAttributes="Bold" VerticalOptions="Center" TextColor="#512BD4"/>
+                        </Grid>
+                        
+                        <BoxView HeightRequest="1" Color="{AppThemeBinding Light=Gray, Dark=Gray}" Opacity="0.2"/>
+
+                        <Button Text="GitHub besuchen" 
+                                Clicked="OnWebsiteClicked"
+                                BackgroundColor="{StaticResource Primary}" 
+                                TextColor="White"
+                                HeightRequest="40"/>
+                    </VerticalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+
+            <VerticalStackLayout Grid.Row="2" Spacing="5" Margin="0,30,0,0">
+                <Label Text="© 2024 Loïc Steiner. Alle Rechte vorbehalten." 
+                       FontSize="12" 
+                       HorizontalOptions="Center" 
+                       TextColor="Gray"/>
+                <Label Text="Made in Switzerland" 
+                       FontSize="12" 
+                       HorizontalOptions="Center" 
+                       TextColor="Gray"/>
+                
+                <Button Text="Schließen" 
+                        Clicked="OnCloseClicked"
+                        BackgroundColor="Transparent"
+                        TextColor="{StaticResource Primary}"
+                        Margin="0,10,0,0"/>
+            </VerticalStackLayout>
+
+        </Grid>
+    </ScrollView>
+</ContentPage>

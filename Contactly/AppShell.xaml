@@ -7,27 +7,40 @@
     xmlns:pages="clr-namespace:Contactly.Views"
     Shell.FlyoutBehavior="Locked"
     FlyoutWidth="250"
-    FlyoutBackgroundColor="#F7F7F7"
+    FlyoutBackgroundColor="{AppThemeBinding Light=#F7F7F7, Dark={StaticResource SurfaceDark}}"
     Title="Contactly">
-
+    
+    
     <Shell.FlyoutHeader>
         <VerticalStackLayout>
             <Image Source="logo.png" HeightRequest="50" Margin="10,10,10,10" HorizontalOptions="Center"/>
         </VerticalStackLayout>
     </Shell.FlyoutHeader>
+    
+      
   
-    <FlyoutItem Title="Meine Kontakte" Icon="logo.png">
+    <FlyoutItem Title="Meine Kontakte" Icon="{AppThemeBinding Light=home.png, Dark=home_white.png}">
         <ShellContent ContentTemplate="{DataTemplate pages:ContactsPage}" Route="contacts"/>
     </FlyoutItem>
 
-    <FlyoutItem Title="Suchen" Icon="logo.png">
+    <FlyoutItem Title="Suchen" Icon="{AppThemeBinding Light=.png, Dark=search_white.png}">
         <ShellContent ContentTemplate="{DataTemplate pages:SearchPage}" Route="search"/>
     </FlyoutItem>
 
-    <FlyoutItem Title="Hinzufügen" Icon="logo.png">
+    <FlyoutItem Title="Hinzufügen" Icon="{AppThemeBinding Light=add.png, Dark=add_white.png}">
         <ShellContent ContentTemplate="{DataTemplate pages:ContactsFormPage}" Route="contactsFormPage"/>
     </FlyoutItem>
+    
+    <MenuItem Text="Hilfe / FAQ" 
+              
+              Clicked="OnFaqClicked" />
 
-
+    <MenuItem Text="Info" 
+        
+              Clicked="OnInfoClicked" />
+    
+    <MenuItem Text="Beenden" 
+            
+              Clicked="OnExitClicked" />
 
 </Shell>

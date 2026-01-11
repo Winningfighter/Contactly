@@ -2,28 +2,28 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="Contactly.Views.SearchPage"
-             xmlns:models="clr-namespace:Contactly.Models"
-             Title="Suchen">
+             xmlns:models="clr-namespace:Contactly.Models">
+    
     <Grid RowDefinitions="Auto, Auto, Auto, *" Padding="20">
         
         <Label Grid.Row="0" 
                Text="Suchen" 
                FontSize="32" 
                FontAttributes="Bold"
-               TextColor="{StaticResource Font}"
+               TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}"
                Margin="0,0,0,20"/>
 
         <Border Grid.Row="1" 
                 StrokeShape="RoundRectangle 10"
                 StrokeThickness="0"
-                BackgroundColor="#EEEEEE"
+                BackgroundColor="{AppThemeBinding Light={StaticResource Secondary}, Dark={StaticResource InputBackgroundDark}}"
                 Padding="10,0"
                 HeightRequest="50">
             
             <Entry x:Name="SearchEntry"
                    Placeholder="Kontakte Suchen..."
-                   PlaceholderColor="Gray"
-                   TextColor="{StaticResource Font}"
+                   PlaceholderColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}"
+                   TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}"
                    BackgroundColor="Transparent"
                    VerticalOptions="Center"
                    TextChanged="OnSearchTextChanged"/>
@@ -40,7 +40,8 @@
         <CollectionView x:Name="SearchResultsCollection"
                         Grid.Row="3"
                         Margin="0,20,0,0"
-                        SelectionMode="Single">
+                        SelectionMode="Single"
+                        SelectionChanged="OnSelectionChanged">
             
             <CollectionView.ItemsLayout>
                 <GridItemsLayout Orientation="Vertical" Span="2" HorizontalItemSpacing="10" VerticalItemSpacing="10"/>
@@ -49,29 +50,69 @@
             <CollectionView.ItemTemplate>
                 <DataTemplate x:DataType="models:Contact">
                     <Border StrokeShape="RoundRectangle 8"
-                            Stroke="#E0E0E0"
+                            Stroke="{AppThemeBinding Light={StaticResource Gray200}, Dark={StaticResource Gray600}}"
                             Padding="15"
-                            BackgroundColor="White">
+                            BackgroundColor="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource SurfaceDark}}">
                         
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                    <VisualState.Setters>
+                                        <Setter Property="BackgroundColor" Value="{AppThemeBinding Light=#F5F5F5, Dark=#333333}" />
+                                    </VisualState.Setters>
+                                </VisualState>
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+
                         <Grid RowDefinitions="Auto, Auto, Auto, Auto" ColumnDefinitions="Auto, *">
-                            <Frame Grid.Row="0" Grid.RowSpan="2"
+                            
+                            <Frame Grid.Row="0" Grid.RowSpan="3"
                                    CornerRadius="25" 
                                    HeightRequest="50" 
                                    WidthRequest="50" 
                                    BackgroundColor="{StaticResource Accent}" 
                                    Padding="0"
                                    VerticalOptions="Start">
-                                <Label Text="{Binding FirstName, StringFormat='{0:F1}'}" 
+                                <Label Text="{Binding Initials}" 
                                        TextColor="White" 
+                                       FontAttributes="Bold"
                                        HorizontalOptions="Center" 
                                        VerticalOptions="Center"/>
                             </Frame>
                             
-                            <VerticalStackLayout Grid.Column="1" Margin="15,0,0,0" Spacing="2">
-                                <Label Text="{Binding FirstName}" FontAttributes="Bold" TextColor="{StaticResource Font}"/>
-                                <Label Text="{Binding Email}" TextColor="Gray" FontSize="12"/>
-                                <Label Text="{Binding Phone}" TextColor="Gray" FontSize="12"/>
-                                <Label Text="{Binding Company}" TextColor="Gray" FontSize="12"/>
+                            <VerticalStackLayout Grid.Column="1" Margin="15,0,0,0" Spacing="4">
+                                
+                                <Label Text="{Binding FullName}" 
+                                       FontAttributes="Bold" 
+                                       TextColor="{AppThemeBinding Light={StaticResource Font}, Dark={StaticResource FontSecondary}}"
+                                       FontSize="16"
+                                       Margin="0,0,0,5"/>
+                                
+                                <HorizontalStackLayout Spacing="8">
+                                    <Image Source="{AppThemeBinding Light=mail.png, Dark=mail_white.png}" 
+                                           HeightRequest="14" WidthRequest="14" VerticalOptions="Center"/>
+                                    <Label Text="{Binding Email}" 
+                                           TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" 
+                                           FontSize="12" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+
+                                <HorizontalStackLayout Spacing="8">
+                                    <Image Source="{AppThemeBinding Light=phone.png, Dark=phone_white.png}" 
+                                           HeightRequest="14" WidthRequest="14" VerticalOptions="Center"/>
+                                    <Label Text="{Binding Phone}" 
+                                           TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" 
+                                           FontSize="12" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+
+                                <HorizontalStackLayout Spacing="8">
+                                    <Image Source="{AppThemeBinding Light=company.png, Dark=company_white.png}" 
+                                           HeightRequest="14" WidthRequest="14" VerticalOptions="Center"/>
+                                    <Label Text="{Binding Company}" 
+                                           TextColor="{AppThemeBinding Light={StaticResource Gray500}, Dark={StaticResource Gray400}}" 
+                                           FontSize="12" VerticalOptions="Center"/>
+                                </HorizontalStackLayout>
+
                             </VerticalStackLayout>
                         </Grid>
                     </Border>
