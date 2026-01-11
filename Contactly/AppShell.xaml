@@ -23,7 +23,7 @@
         <ShellContent ContentTemplate="{DataTemplate pages:ContactsPage}" Route="contacts"/>
     </FlyoutItem>
 
-    <FlyoutItem Title="Suchen" Icon="{AppThemeBinding Light=.png, Dark=search_white.png}">
+    <FlyoutItem Title="Suchen" Icon="{AppThemeBinding Light=search.png, Dark=search_white.png}">
         <ShellContent ContentTemplate="{DataTemplate pages:SearchPage}" Route="search"/>
     </FlyoutItem>
 

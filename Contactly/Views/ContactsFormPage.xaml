@@ -14,7 +14,8 @@
             <Button Text="Abbrechen" 
                     Clicked="OnCancelClicked" 
                     Style="{StaticResource SecondaryButtonStyle}" 
-                    BackgroundColor="{StaticResource SecondaryButtonDark}"/>
+                    BackgroundColor="{AppThemeBinding Light={StaticResource SecondaryButton}, Dark={StaticResource SecondaryButtonDark}}" 
+            />
             
             <Button x:Name="ActionBtn" 
                     Text="Hinzufügen" 
