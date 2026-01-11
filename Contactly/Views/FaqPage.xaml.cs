@@ -22,7 +22,7 @@ public partial class FaqPage : ContentPage
         FaqItems.Add(new FaqItem 
         { 
             Question = "Wie füge ich Kontakte hinzu?", 
-            Answer = "Gehe im Menü auf 'Hinzufügen' oder klicke auf das Plus-Symbol, falls vorhanden. Fülle das Formular aus und klicke auf Speichern." 
+            Answer = "Gehe im Menü auf 'Hinzufügen'. Fülle das Formular aus und klicke auf Speichern." 
         });
 
         FaqItems.Add(new FaqItem 
